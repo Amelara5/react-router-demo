@@ -1,39 +1,23 @@
-export default function NavBar({ setCurrentPage }) {
+import { Link } from "react-router-dom";
+
+export default function NavBar() {
   return (
     <nav className="border-b-2">
       <ul className="divide-y bg-slate-500 px-4 sm:flex sm:gap-x-16 sm:divide-y-0 [&>*]:py-4">
         <li>
-          <a
-            href="/about"
-            onClick={(e) => {
-              e.preventDefault();
-              setCurrentPage("/about");
-            }}
-          >
+          <Link to="/about" className="text-blue-500">
             About
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="/contact"
-            onClick={(e) => {
-              e.preventDefault();
-              setCurrentPage("/contact");
-            }}
-          >
+          <Link to="/contact" className="text-blue-500">
             Contact
-          </a>
+          </Link>
         </li>
         <li>
-          <a
-            href="/login"
-            onClick={(e) => {
-              e.preventDefault();
-              setCurrentPage("/login");
-            }}
-          >
+          <Link to="/login" className="text-blue-500">
             Login/Register
-          </a>
+          </Link>
         </li>
       </ul>
     </nav>
