@@ -7,6 +7,7 @@ import {
 import Layout from "./components/layout";
 import { About, Contact, Home, LoginRegister } from "./pages";
 import { loadThoughts } from "./pages/loaders";
+import Error from "./components/error";
 
 // const router = createBrowserRouter([
 //   {
@@ -27,6 +28,7 @@ const router = createBrowserRouter(
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
       <Route path="/login" element={<LoginRegister />} />
+      <Route path="*" element={<Error />} />
     </Route>
   )
 );
