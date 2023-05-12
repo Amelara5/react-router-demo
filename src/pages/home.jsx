@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react";
+import { Suspense } from "react";
+import { Await, useLoaderData } from "react-router-dom";
 import Loading from "../components/loading";
 import ThoughtList from "../components/thoughts/thought-list";
-import apiService from "../services/api";
 
 export default function Home() {
-  const [thoughts, setThoughts] = useState(null);
-
-  useEffect(() => {
-    apiService.indexThoughts().then((data) => setThoughts(data));
-  }, []);
-
-  return thoughts ? <ThoughtList items={thoughts} /> : <Loading />;
+  const { thoughts } = useLoaderData();
+  return (
+    <Suspense fallback={<Loading />}>
+      <Await resolve={thoughts}>
+        <ThoughtList />
+      </Await>
+    </Suspense>
+  );
 }
