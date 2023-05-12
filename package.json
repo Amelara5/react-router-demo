@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "json-server": "^0.17.3",
+    "ky": "^0.33.3",
     "lodash.camelcase": "^4.3.0",
     "lodash.capitalize": "^4.2.1",
     "lodash.startcase": "^4.4.0",
