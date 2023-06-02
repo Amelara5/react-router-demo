@@ -11,6 +11,7 @@ module.exports = {
     "plugin:jsx-a11y/recommended",
     "plugin:testing-library/react",
     "plugin:jest-dom/recommended",
+    "plugin: cypress/recommended",
     "standard",
     "prettier",
   ],
@@ -19,7 +20,13 @@ module.exports = {
     ecmaVersion: "latest",
     sourceType: "module",
   },
-  plugins: ["react", "use-encapsulation", "testing-library", "jest-dom"],
+  plugins: [
+    "react",
+    "use-encapsulation",
+    "testing-library",
+    "jest-dom",
+    "cypress",
+  ],
   rules: {
     "no-console": [
       "warn",
