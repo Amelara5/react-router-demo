@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "thought": "✅ React is starting to make sense!",
+    "date": "04/24/2023",
+    "time": "10:00",
+    "author": "admin"
+  },
+  {
+    "id": 2,
+    "thought": "✅ Separation of concerns is important. These thoughts 💭 are being loaded from an API service - not directly from a component!",
+    "date": "04/25/2023",
+    "time": "03:00",
+    "author": "admin"
+  },
+  {
+    "id": 3,
+    "thought": "✅ Code quality matters. Watch for ESLint warnings and errors 🚨.",
+    "date": "04/26/2023",
+    "time": "18:00",
+    "author": "admin"
+  },
+  {
+    "id": 4,
+    "thought": "✅ This is a test from user2click",
+    "author": "user2click",
+    "date": "04/27/2023",
+    "time": "19:20"
+  }
+]
