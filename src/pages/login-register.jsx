@@ -1,3 +1,4 @@
+import { Form } from "react-router-dom";
 import { TextInput } from "../components/form";
 import useRegistering from "../hooks/useRegistering";
 
@@ -5,12 +6,7 @@ export default function LoginRegister() {
   const [isRegistering, setIsRegistering] = useRegistering();
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        console.log("submitted!");
-      }}
-    >
+    <Form method="POST">
       <h2>{isRegistering ? "Register" : "Login"}</h2>
 
       {/* Conditional Rendering (https://react.dev/learn/conditional-rendering) */}
@@ -38,6 +34,6 @@ export default function LoginRegister() {
       >
         {isRegistering ? "Already have an account?" : "Don't have an account?"}
       </button>
-    </form>
+    </Form>
   );
 }
