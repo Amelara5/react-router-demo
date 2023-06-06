@@ -4,10 +4,10 @@ import Thought from "./thought";
 export default function Thoughts() {
   const items = useAsyncValue();
   return (
-    <ol className="list-decimal space-y-4" data-cy="thought-list">
+    <ul className="list-none space-y-4" data-cy="thought-list">
       {items.map((thought) => (
         <Thought key={thought.id} thought={thought} />
       ))}
-    </ol>
+    </ul>
   );
 }
