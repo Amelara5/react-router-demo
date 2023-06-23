@@ -3,13 +3,8 @@ import api from "../services/api";
 import { validateRegistrationPasswords } from "../services/utils";
 
 export const registerOrLogin = async ({ request }) => {
-  //   console.log("Submitted");
-  //   console.log(request);
-
   const fd = await request.formData();
   const submittedUser = Object.fromEntries(fd);
-
-  //   console.log(submittedUser);
 
   try {
     validateRegistrationPasswords(
@@ -24,5 +19,4 @@ export const registerOrLogin = async ({ request }) => {
   } catch (error) {
     return error.message;
   }
-  return token;
 };
