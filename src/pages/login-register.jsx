@@ -3,6 +3,7 @@ import { Form, useActionData, useNavigation } from "react-router-dom";
 import { TextInput } from "../components/form";
 import useRegistering from "../hooks/useRegistering";
 import useError from "../hooks/useError";
+import useCurrentUser from "../hooks/useCurrentUser";
 
 export default function LoginRegister() {
   const navigation = useNavigation();
@@ -10,6 +11,7 @@ export default function LoginRegister() {
   const [isRegistering, setIsRegistering] = useRegistering();
 
   const [errorMessage, isErrorShown, setIsErrorShown] = useError();
+  const [currentUser, setCurrentUser] = useCurrentUser();
 
   return (
     <Form
