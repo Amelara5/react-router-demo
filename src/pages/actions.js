@@ -28,3 +28,14 @@ export const registerOrLogin = async ({ request }) => {
     return error.message;
   }
 };
+
+export const createThought = async ({ request }) => {
+  console.log("TEST");
+  const fd = await request.formData();
+  const submittedUser = Object.fromEntries(fd);
+
+  console.log(fd);
+  console.log(submittedUser);
+
+  return null;
+};
