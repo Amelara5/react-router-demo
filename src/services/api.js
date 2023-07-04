@@ -1,7 +1,9 @@
 import ky from "ky";
-
-export const AUTH_BASE_URL = "http://localhost:3000/users";
-export const THOUGHTS_BASE_URL = "http://localhost:3001/thoughts";
+import {
+  decodeUserFromTokenCookie,
+  getCurrentDateTime,
+  getTokenCookie,
+} from "./utils";
 
 const authAPI = ky.create({
   // Hooks allow modifications during the request lifecycle. Hook functions may be async and are run serially.
@@ -33,8 +35,34 @@ const authAPI = ky.create({
 });
 
 export default {
+  async createThought(thought) {
+    /**
+     * In real life, the server would manage JWT security as part of the request.
+     * Here, we are doing this separately as we are managing data via JSON Server.
+     */
+    const validToken = await authAPI
+      .post(`http://localhost:3000/users/verify`, {
+        json: { token: getTokenCookie() },
+      })
+      .json();
+
+    if (!validToken) {
+      // This will be caught by React and we can clean up context and send the user to login.
+      throw new Error("Invalid token");
+    }
+
+    return authAPI
+      .post(`http://localhost:3001/thoughts`, {
+        json: {
+          ...thought,
+          author: decodeUserFromTokenCookie(),
+          ...getCurrentDateTime(),
+        },
+      })
+      .json();
+  },
   indexThoughts() {
-    return ky.get(THOUGHTS_BASE_URL).json();
+    return ky.get(`http://localhost:3001/thoughts`).json();
   },
   async showThoughts(author) {
     const allThoughts = await this.indexThoughts();
@@ -49,9 +77,13 @@ export default {
     return thoughts4Author;
   },
   registerUser(newUser) {
-    return authAPI.post(`${AUTH_BASE_URL}/register`, { json: newUser }).json();
+    return authAPI
+      .post(`http://localhost:3000/users/register`, { json: newUser })
+      .json();
   },
   loginUser(user) {
-    return authAPI.post(`${AUTH_BASE_URL}/login`, { json: user }).json();
+    return authAPI
+      .post(`http://localhost:3000/users/login`, { json: user })
+      .json();
   },
 };

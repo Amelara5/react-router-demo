@@ -16,6 +16,25 @@ export const delCookieToken = () => {
     "token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC; SameSite=Lax";
 };
 
+export const getCurrentDateTime = () => {
+  const timestamp = Date.now();
+  const currentDate = new Date(timestamp);
+
+  const options = { month: "2-digit", day: "2-digit", year: "numeric" };
+  const formattedDate = currentDate.toLocaleDateString("en-US", options);
+
+  const hours = currentDate.getHours();
+  const minutes = currentDate.getMinutes();
+  const formattedTime = `${hours.toString().padStart(2, "0")}:${minutes
+    .toString()
+    .padStart(2, "0")}`;
+
+  return {
+    date: formattedDate,
+    time: formattedTime,
+  };
+};
+
 export const getTokenCookie = () => {
   return (
     document.cookie

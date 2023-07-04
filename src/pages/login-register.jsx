@@ -1,21 +1,18 @@
-import { useEffect, useState } from "react";
-import { Form, useActionData, useNavigation } from "react-router-dom";
+import { Form, useNavigation } from "react-router-dom";
 import { TextInput } from "../components/form";
-import useRegistering from "../hooks/useRegistering";
 import useError from "../hooks/useError";
-import useCurrentUser from "../hooks/useCurrentUser";
+import useRegistering from "../hooks/useRegistering";
 
 export default function LoginRegister() {
   const navigation = useNavigation();
 
   const [isRegistering, setIsRegistering] = useRegistering();
 
-  const [errorMessage, isErrorShown, setIsErrorShown] = useError();
-  const [currentUser, setCurrentUser] = useCurrentUser();
+  let [errorMessage, isErrorShown, setIsErrorShown] = useError();
 
   return (
     <Form
-      method="POST"
+      method="post"
       onChange={() => {
         setIsErrorShown(false);
       }}
@@ -27,13 +24,13 @@ export default function LoginRegister() {
 
       {errorMessage && isErrorShown && <p className="error">{errorMessage}</p>}
       {/* Conditional Rendering (https://react.dev/learn/conditional-rendering) */}
-      {isRegistering && <TextInput id="name" placeholder="Your Full Name" />}
+      {/* {isRegistering && <TextInput id="name" placeholder="Your Full Name" />} */}
 
       <TextInput id="username" />
       <TextInput type="password" id="password" />
       {isRegistering && (
         <TextInput
-          id="confirmPassword"
+          id="confirmedPassword"
           type="password"
           // Don't require the confirm password field. We will be checking it in 'handleSubmit' anyway.
           required={false}
