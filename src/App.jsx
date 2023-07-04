@@ -25,7 +25,19 @@ import { loadThoughts } from "./pages/loaders";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Layout />}>
-      <Route index element={<Home />} loader={loadThoughts} />
+      <Route
+        index
+        element={<Home />}
+        loader={loadThoughts}
+        action={async ({ request }) => {
+          const fd = await request.formData();
+          const thoughtWritten = Object.fromEntries(fd);
+          console.log(fd);
+          console.log(thoughtWritten);
+          console.log("Form submitted");
+          return null;
+        }}
+      />
       <Route path="thoughts/:author" element={<Home />} loader={loadThoughts} />
       <Route path="/about" element={<About />} />
       <Route path="/contact" element={<Contact />} />
