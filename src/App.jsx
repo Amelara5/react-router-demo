@@ -7,7 +7,7 @@ import {
 import Error from "./components/error";
 import Layout from "./components/layout";
 import { About, Contact, Home, LoginRegister } from "./pages";
-import { registerOrLogin } from "./pages/actions";
+import { createThought, registerOrLogin } from "./pages/actions";
 import { loadThoughts } from "./pages/loaders";
 
 // const router = createBrowserRouter([
@@ -29,14 +29,7 @@ const router = createBrowserRouter(
         index
         element={<Home />}
         loader={loadThoughts}
-        action={async ({ request }) => {
-          const fd = await request.formData();
-          const thoughtWritten = Object.fromEntries(fd);
-          console.log(fd);
-          console.log(thoughtWritten);
-          console.log("Form submitted");
-          return null;
-        }}
+        action={createThought}
       />
       <Route path="thoughts/:author" element={<Home />} loader={loadThoughts} />
       <Route path="/about" element={<About />} />

@@ -30,12 +30,10 @@ export const registerOrLogin = async ({ request }) => {
 };
 
 export const createThought = async ({ request }) => {
-  console.log("TEST");
   const fd = await request.formData();
   const submittedUser = Object.fromEntries(fd);
 
-  console.log(fd);
-  console.log(submittedUser);
+  api.createThought(submittedUser);
 
   return null;
 };
