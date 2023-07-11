@@ -31,9 +31,16 @@ export const registerOrLogin = async ({ request }) => {
 
 export const createThought = async ({ request }) => {
   const fd = await request.formData();
-  const submittedUser = Object.fromEntries(fd);
+  const thought = Object.fromEntries(fd);
 
-  api.createThought(submittedUser);
+  await api.createThought(thought);
 
-  return null;
+  return redirect("/");
+
+  // *----- Manavs way -----*
+  // const thought = Object.get("thought")
+  // 'decodeUserFromTokenCookie' is to Revalidate the user token whenever we submit a thought
+  // const author = decodeUserFromTokenCookie()
+  // await api.addThought({thought, author})
+  // retun redirect("/")
 };
