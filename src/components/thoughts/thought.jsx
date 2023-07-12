@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 
 export default function Thought({ thought }) {
+  const [currentUser] = useOutletContext();
   return (
     <li className="font-medium">
       {thought.thought}
@@ -9,6 +10,8 @@ export default function Thought({ thought }) {
         <time>{thought.date}</time>
         <time>{thought.time}</time>
       </small>
+      {currentUser === thought.author &&
+        "This 'thought' is from the user online"}
     </li>
   );
 }
