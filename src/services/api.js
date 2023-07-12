@@ -1,5 +1,5 @@
 import ky from "ky";
-import { getCurrentFormattedDateTime } from "./utils";
+import { getCurrentDateTime } from "./utils";
 
 export const AUTH_BASE_URL = "http://localhost:3000/users";
 export const THOUGHTS_BASE_URL = "http://localhost:3001/thoughts";
@@ -57,7 +57,7 @@ export default {
   addThought(thought) {
     const thoughtWithDateTime = {
       ...thought,
-      ...getCurrentFormattedDateTime(),
+      ...getCurrentDateTime(),
     };
 
     return ky.post(THOUGHTS_BASE_URL, { json: thoughtWithDateTime }).json();
