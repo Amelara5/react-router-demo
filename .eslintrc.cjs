@@ -11,7 +11,7 @@ module.exports = {
     "plugin:jsx-a11y/recommended",
     "plugin:testing-library/react",
     "plugin:jest-dom/recommended",
-    "plugin: cypress/recommended",
+    "plugin:cypress/recommended",
     "standard",
     "prettier",
   ],
