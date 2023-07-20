@@ -1,6 +1,7 @@
 import { redirect } from "react-router-dom";
 import api from "../services/api";
 import {
+  decodeUserFromTokenCookie,
   setTokenCookie,
   validateRegistrationPasswords,
 } from "../services/utils";
@@ -31,9 +32,10 @@ export const registerOrLogin = async ({ request }) => {
 
 export const createThought = async ({ request }) => {
   const fd = await request.formData();
-  const thought = Object.fromEntries(fd);
+  const data = Object.fromEntries(fd);
+  const author = decodeUserFromTokenCookie();
 
-  await api.createThought(thought);
+  await api.addThought({ thought: data.thought, author });
 
   return redirect("/");
 
