@@ -1,7 +1,9 @@
-import { Link, useOutletContext } from "react-router-dom";
+import { Link, useOutletContext, useSubmit } from "react-router-dom";
 
 export default function Thought({ thought }) {
   const [currentUser] = useOutletContext();
+  const submit = useSubmit();
+
   return (
     <li className="font-medium">
       {thought.thought}
@@ -13,7 +15,17 @@ export default function Thought({ thought }) {
       {currentUser === thought.author && (
         <div className="my-2 space-x-2">
           <button className="rounded bg-indigo-300 px-4 py-2">Edit</button>
-          <button className="rounded bg-indigo-600 px-4 py-2">Delete</button>
+          <button
+            className="rounded bg-indigo-600 px-4 py-2"
+            onClick={() => {
+              submit(
+                { id: thought.id, author: thought.author },
+                { method: "DELETE" }
+              );
+            }}
+          >
+            Delete
+          </button>
         </div>
       )}
     </li>
