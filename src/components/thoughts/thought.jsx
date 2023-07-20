@@ -10,8 +10,12 @@ export default function Thought({ thought }) {
         <time>{thought.date}</time>
         <time>{thought.time}</time>
       </small>
-      {currentUser === thought.author &&
-        "This 'thought' is from the user online"}
+      {currentUser === thought.author && (
+        <div className="my-2 space-x-2">
+          <button className="rounded bg-indigo-300 px-4 py-2">Edit</button>
+          <button className="rounded bg-indigo-600 px-4 py-2">Delete</button>
+        </div>
+      )}
     </li>
   );
 }
