@@ -6,6 +6,28 @@ import {
   validateRegistrationPasswords,
 } from "../services/utils";
 
+export const mutateThought = async ({ request }) => {
+  const fd = await request.formData();
+  switch (request.method) {
+    case "POST": {
+      const data = Object.fromEntries(fd);
+      const author = decodeUserFromTokenCookie();
+
+      await api.addThought({ thought: data.thought, author });
+      break;
+    }
+    case "DELETE": {
+      console.log(Object.fromEntries(fd));
+      await api.deleteThought(
+        Object.fromEntries(fd),
+        decodeUserFromTokenCookie()
+      );
+    }
+  }
+
+  return redirect("/");
+};
+
 export const registerOrLogin = async ({ request }) => {
   const fd = await request.formData();
   const submittedUser = Object.fromEntries(fd);
