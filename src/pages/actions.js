@@ -8,24 +8,28 @@ import {
 
 export const mutateThought = async ({ request }) => {
   const fd = await request.formData();
-  switch (request.method) {
-    case "POST": {
-      const data = Object.fromEntries(fd);
-      const author = decodeUserFromTokenCookie();
+  const author = decodeUserFromTokenCookie();
 
-      await api.addThought({ thought: data.thought, author });
-      break;
+  try {
+    switch (request.method) {
+      case "POST": {
+        const data = Object.fromEntries(fd);
+
+        await api.addThought({ thought: data.thought, author });
+        break;
+      }
+      case "DELETE": {
+        await api.deleteThought(
+          Object.fromEntries(fd),
+          decodeUserFromTokenCookie()
+        );
+      }
     }
-    case "DELETE": {
-      console.log(Object.fromEntries(fd));
-      await api.deleteThought(
-        Object.fromEntries(fd),
-        decodeUserFromTokenCookie()
-      );
-    }
+
+    return null;
+  } catch (error) {
+    return error.message;
   }
-
-  return redirect("/");
 };
 
 export const registerOrLogin = async ({ request }) => {
