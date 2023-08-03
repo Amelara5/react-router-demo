@@ -4,6 +4,7 @@ import Error from "../components/error";
 import { TextInput } from "../components/form";
 import Loading from "../components/loading";
 import ThoughtList from "../components/thoughts/thought-list";
+import useError from "../hooks/useError";
 import { useSetCurrentUser } from "../hooks/useSetCurrentUser";
 
 export default function Home() {
@@ -18,15 +19,27 @@ export default function Home() {
 
   const { thoughts } = useLoaderData();
   const useCurrentUser = useSetCurrentUser();
+
+  const [errorMessage, isErrorShown, setIsErrorShown] = useError();
   return (
     <Suspense fallback={<Loading />}>
       <Await resolve={thoughts} errorElement={<Error />}>
         {useCurrentUser && (
-          <Form method="post" className=" mb-6" ref={formRef}>
+          <Form
+            method="post"
+            className=" mb-6"
+            ref={formRef}
+            onSubmit={() => {
+              setIsErrorShown(false);
+            }}
+          >
             <TextInput
               id={"thought"}
               placeholder={"What's on your mind 🤔💭"}
             />
+            {errorMessage && isErrorShown && (
+              <p className="error">{errorMessage}</p>
+            )}
             <button className="btn" type="submit">
               Add Thought
             </button>
