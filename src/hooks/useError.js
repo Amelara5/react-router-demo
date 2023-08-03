@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useActionData } from "react-router-dom";
 
 export default function useError() {
-  let errorMessage = useActionData();
+  const errorMessage = useActionData();
 
   const [isErrorShown, setIsErrorShown] = useState(false);
 
