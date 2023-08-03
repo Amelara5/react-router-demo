@@ -1,5 +1,5 @@
 import { Suspense, useEffect, useRef } from "react";
-import { Await, Form, useLoaderData } from "react-router-dom";
+import { Await, Form, useLoaderData, useNavigation } from "react-router-dom";
 import Error from "../components/error";
 import { TextInput } from "../components/form";
 import Loading from "../components/loading";
@@ -19,8 +19,10 @@ export default function Home() {
 
   const { thoughts } = useLoaderData();
   const useCurrentUser = useSetCurrentUser();
+  const navigation = useNavigation();
 
   const [errorMessage, isErrorShown, setIsErrorShown] = useError();
+  const isIdle = navigation.state === "idle";
   return (
     <Suspense fallback={<Loading />}>
       <Await resolve={thoughts} errorElement={<Error />}>
