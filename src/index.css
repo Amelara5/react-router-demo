@@ -49,3 +49,7 @@
     @apply font-semibold text-blue-900;
   }
 }
+
+button:disabled {
+  @apply cursor-not-allowed opacity-50;
+}
