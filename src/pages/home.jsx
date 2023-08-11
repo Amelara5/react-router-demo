@@ -9,9 +9,9 @@ import { useSetCurrentUser } from "../hooks/useSetCurrentUser";
 
 export default function Home() {
   useEffect(() => {
-    const form = formRef.current();
+    const form = formRef.current;
     if (!form) return;
-
+    if (!errorMessage && isIdle) formRef.current.reset();
     form.elements.namedItem("thought").focus();
   });
 
@@ -42,7 +42,7 @@ export default function Home() {
             {errorMessage && isErrorShown && (
               <p className="error">{errorMessage}</p>
             )}
-            <button className="btn" type="submit">
+            <button className="btn" type="submit" disabled={!isIdle}>
               Add Thought
             </button>
           </Form>
