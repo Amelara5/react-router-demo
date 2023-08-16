@@ -1,28 +1,22 @@
-import { Suspense, useEffect, useRef } from "react";
+import { Suspense } from "react";
 import { Await, Form, useLoaderData, useNavigation } from "react-router-dom";
 import Error from "../components/error";
 import { TextInput } from "../components/form";
 import Loading from "../components/loading";
 import ThoughtList from "../components/thoughts/thought-list";
+import useClearForm from "../hooks/useClearForm";
 import useError from "../hooks/useError";
 import { useSetCurrentUser } from "../hooks/useSetCurrentUser";
 
 export default function Home() {
-  useEffect(() => {
-    const form = formRef.current;
-    if (!form) return;
-    if (!errorMessage && isIdle) formRef.current.reset();
-    form.elements.namedItem("thought").focus();
-  });
-
-  const formRef = useRef(null);
-
   const { thoughts } = useLoaderData();
   const useCurrentUser = useSetCurrentUser();
   const navigation = useNavigation();
 
   const [errorMessage, isErrorShown, setIsErrorShown] = useError();
   const isIdle = navigation.state === "idle";
+
+  const formRef = useClearForm(isIdle, errorMessage);
   return (
     <Suspense fallback={<Loading />}>
       <Await resolve={thoughts} errorElement={<Error />}>
