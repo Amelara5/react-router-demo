@@ -1,8 +1,16 @@
-import { Link, useOutletContext, useSubmit } from "react-router-dom";
+import {
+  Link,
+  useNavigation,
+  useOutletContext,
+  useSubmit,
+} from "react-router-dom";
 
 export default function Thought({ thought }) {
   const [currentUser] = useOutletContext();
   const submit = useSubmit();
+
+  const navigation = useNavigation();
+  const isIdle = navigation.state === "idle";
 
   return (
     <li className="font-medium">
@@ -23,6 +31,7 @@ export default function Thought({ thought }) {
                 { method: "DELETE" }
               );
             }}
+            disabled={!isIdle}
           >
             Delete
           </button>
