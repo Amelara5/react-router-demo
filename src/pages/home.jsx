@@ -17,6 +17,8 @@ export default function Home() {
   const isIdle = navigation.state === "idle";
 
   const formRef = useClearForm(isIdle, errorMessage);
+  const [thought2Edit, setThought2Edit] = useState(null);
+  const { thought } = thought2Edit || {};
   return (
     <Suspense fallback={<Loading />}>
       <Await resolve={thoughts} errorElement={<Error />}>
@@ -32,6 +34,7 @@ export default function Home() {
             <TextInput
               id={"thought"}
               placeholder={"What's on your mind 🤔💭"}
+              defaultValue={thought}
             />
             {errorMessage && isErrorShown && (
               <p className="error">{errorMessage}</p>
@@ -42,7 +45,7 @@ export default function Home() {
           </Form>
         )}
 
-        <ThoughtList />
+        <ThoughtList setThought2Edit={setThought2Edit} />
       </Await>
     </Suspense>
   );
