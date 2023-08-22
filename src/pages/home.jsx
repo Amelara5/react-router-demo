@@ -1,11 +1,11 @@
-import { Suspense, useState } from "react";
+import { Suspense } from "react";
 import { Await, Form, useLoaderData, useNavigation } from "react-router-dom";
 import Error from "../components/error";
 import { TextInput } from "../components/form";
 import Loading from "../components/loading";
 import ThoughtList from "../components/thoughts/thought-list";
-import useClearForm from "../hooks/useClearForm";
 import useError from "../hooks/useError";
+import useForm from "../hooks/useForm";
 import { useSetCurrentUser } from "../hooks/useSetCurrentUser";
 
 export default function Home() {
@@ -16,9 +16,11 @@ export default function Home() {
   const [errorMessage, isErrorShown, setIsErrorShown] = useError();
   const isIdle = navigation.state === "idle";
 
-  const formRef = useClearForm(isIdle, errorMessage);
+  const { formRef, thought2Edit, setThought2Edit } = useForm(
+    isIdle,
+    errorMessage
+  );
 
-  const [thought2Edit, setThought2Edit] = useState(null);
   const { thought } = thought2Edit || {};
   return (
     <Suspense fallback={<Loading />}>
