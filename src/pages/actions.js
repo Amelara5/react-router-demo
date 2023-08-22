@@ -9,7 +9,6 @@ import {
 export const mutateThought = async ({ request }) => {
   const fd = await request.formData();
   const author = decodeUserFromTokenCookie();
-
   try {
     switch (request.method) {
       case "POST": {
@@ -23,6 +22,17 @@ export const mutateThought = async ({ request }) => {
           Object.fromEntries(fd),
           decodeUserFromTokenCookie()
         );
+        break;
+      }
+      case "PUT": {
+        const id = fd.get("id");
+        const thought = fd.get("thought");
+
+        await api.updateThought(
+          { thought: thought + " (edited)", id, author },
+          decodeUserFromTokenCookie()
+        );
+        return null;
       }
     }
 

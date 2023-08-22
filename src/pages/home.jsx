@@ -1,4 +1,4 @@
-import { Suspense } from "react";
+import { Suspense, useState } from "react";
 import { Await, Form, useLoaderData, useNavigation } from "react-router-dom";
 import Error from "../components/error";
 import { TextInput } from "../components/form";
@@ -17,6 +17,7 @@ export default function Home() {
   const isIdle = navigation.state === "idle";
 
   const formRef = useClearForm(isIdle, errorMessage);
+
   const [thought2Edit, setThought2Edit] = useState(null);
   const { thought } = thought2Edit || {};
   return (
@@ -24,7 +25,7 @@ export default function Home() {
       <Await resolve={thoughts} errorElement={<Error />}>
         {useCurrentUser && (
           <Form
-            method="post"
+            method={thought2Edit ? "PUT" : "POST"}
             className=" mb-6"
             ref={formRef}
             onSubmit={() => {
@@ -40,8 +41,11 @@ export default function Home() {
               <p className="error">{errorMessage}</p>
             )}
             <button className="btn" type="submit" disabled={!isIdle}>
-              Add Thought
+              {thought2Edit ? "Edit" : "Add"} Thought
             </button>
+            {thought2Edit && (
+              <input type="hidden" name="id" value={thought2Edit.id} />
+            )}
           </Form>
         )}
 

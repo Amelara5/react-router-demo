@@ -71,7 +71,7 @@ export default {
 
     return ky
       .patch(`${THOUGHTS_BASE_URL}/${updatedThought.id}`, {
-        json: updatedThought,
+        json: { ...updatedThought, ...getCurrentDateTime() },
       })
       .json();
   },
